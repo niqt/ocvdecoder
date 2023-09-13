@@ -1,0 +1,6 @@
+module ocvdecoder
+linktarget ocvdecoderplugin
+optional plugin qml_ocvdecoder_ocvdecoderplugin
+classname ocvdecoderPlugin
+typeinfo ocvdecoder.qmltypes
+prefer :/ocvdecoder/

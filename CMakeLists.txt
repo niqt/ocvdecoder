@@ -2,17 +2,26 @@
 
 
 qt6_add_qml_module(ocvdecoder
-    URI ocvdecoder.decoder
+    URI ocvdecoder
     VERSION 1.0
     SOURCES
         ocvdecoder.h ocvdecoder.cpp
 )
 
 
-target_link_libraries(ocvdecoder
-    PRIVATE Qt6::Quick Qt6::Multimedia
-    -static-openmp -fopenmp
-)
+if (ANDROID)
+    target_link_libraries(ocvdecoder
+        PRIVATE Qt6::Quick Qt6::Multimedia
+        -static-openmp -fopenmp
+    )
+endif()
+
+if (IOS)
+    target_link_libraries(ocvdecoder
+        PRIVATE Qt6::Quick Qt6::Multimedia
+    )
+endif()
+
 
 target_include_directories(ocvdecoder PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/opencv/include/)
 
