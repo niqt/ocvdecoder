@@ -62,7 +62,8 @@ Thus copy the libraries in the correct path (see in the CMakeFile.txt). Don't fo
  2. Add this line `add_subdirectory(ocvdecoder ${CMAKE_BINARY_DIR}/ocvdecoder)` to the CMakeList.txt
  3. Add the library ocvdecoder to the target_link_libraries
  4. use import ocvdecoder in your Qml file
+ 5. Only for Android add this cmake options ANDROID_PLATFORM=android-24
 
 In the example directory there is an example created with [Felgo](https://www.felgo.com) but with pure Qt it's the same.
 
-This project is working in progress, but stable to be used in project to decode Qr code like that
+This project is working in progress, but stable to be used in project to decode Qr code like ![qr](https://github.com/niqt/ocvdecoder/blob/main/example/FelgoCV/assets/qr.png?raw=true)
