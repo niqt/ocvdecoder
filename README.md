@@ -16,6 +16,7 @@ If you want compile by yourself, feel free following the instructions.
     wget -q https://github.com/opencv/opencv/archive/4.8.0.zip -O opencv-4.8.0.zip
 	unzip -q opencv-4.8.0.zip
 	cd opencv-4.8.0
+	git clone https://github.com/opencv/opencv_contrib.git
 
 	patch -p1 -i ../opencv-4.8.0-no-zlib.patch
 	truncate -s 0 cmake/OpenCVFindLibsGrfmt.cmake
@@ -53,3 +54,15 @@ Set ANDROID_NDK_LATEST_HOME to the path of you Andoid NDK installation, then
 
 ### Installation
 Thus copy the libraries in the correct path (see in the CMakeFile.txt). Don't forget to copy the library from the 3rdyparty directory.
+
+
+## Use
+
+ 1. Copy the ocvdecoder in your Qt project
+ 2. Add this line `add_subdirectory(ocvdecoder ${CMAKE_BINARY_DIR}/ocvdecoder)` to the CMakeList.txt
+ 3. Add the library ocvdecoder to the target_link_libraries
+ 4. use import ocvdecoder in your Qml file
+
+In the example directory there is an example created with [Felgo](https://www.felgo.com) but with pure Qt it's the same.
+
+This project is working in progress, but stable to be used in project to decode Qr code like that
