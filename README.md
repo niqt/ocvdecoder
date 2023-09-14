@@ -53,7 +53,7 @@ Set ANDROID_NDK_LATEST_HOME to the path of you Andoid NDK installation, then
 -DOPENCV_EXTRA_FLAGS="-mno-outline-atomics" ..`
 
 ### Installation
-Thus copy the libraries in the correct path (see in the CMakeFile.txt). Don't forget to copy the library from the 3rdyparty directory.
+Thus copy the libraries in the correct path (see in the CMakeList.txt). Don't forget to copy the library from the 3rdyparty directory.
 
 
 ## Use
