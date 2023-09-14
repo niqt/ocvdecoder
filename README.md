@@ -66,4 +66,5 @@ Thus copy the libraries in the correct path (see in the CMakeFile.txt). Don't fo
 
 In the example directory there is an example created with [Felgo](https://www.felgo.com) but with pure Qt it's the same.
 
-This project is working in progress, but stable to be used in project to decode Qr code like ![qr](https://github.com/niqt/ocvdecoder/blob/main/example/FelgoCV/assets/qr.png?raw=true)
+This project is working in progress, but stable to be used in project to decode Qr code like
+![qr](https://github.com/niqt/ocvdecoder/blob/main/example/FelgoCV/assets/qr.png?raw=true)
