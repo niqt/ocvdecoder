@@ -7,17 +7,21 @@ using namespace std;
 
 OCVDecoder::OCVDecoder(QObject *parent): QObject(parent)
 {
-    m_detector = makePtr<wechat_qrcode::WeChatQRCode>("", "", "", "");
+    QString path = QStandardPaths::writableLocation(QStandardPaths::AppLocalDataLocation);
+
+    m_detector = makePtr<wechat_qrcode::WeChatQRCode>("" , "" ,
+                                                      "", "");
 }
 
 void OCVDecoder::setFrame(const QVideoFrame &frame)
 {
-    if(!isDecoding() && m_processThread.isFinished()) {
+    if (m_run && !isDecoding() && m_processThread.isFinished()) {
+        qDebug() << "DECODING1\n";
         m_decoding = true;
         QImage image = frame.toImage().convertToFormat(QImage::Format_RGB32).rgbSwapped();
 
         m_processThread = QtConcurrent::run([=]() {
-
+            qDebug() << "DECODING2\n";
             if(image.isNull()) {
                 m_decoding = false;
                 return;
@@ -30,6 +34,8 @@ void OCVDecoder::setFrame(const QVideoFrame &frame)
                 for (const auto& value : res) {
                     qDebug() << " opencv " << QString(value.c_str());
                     emit decoded(QString(value.c_str()));
+                    m_run = false;
+                    break;
                 }
             }
             m_decoding = false;
@@ -48,6 +54,10 @@ void OCVDecoder::setVideoSink(QObject *videoSync)
     }
 }
 
+void OCVDecoder::setRun(bool run)
+{
+    m_run = run;
+}
 
 // https://asmaloney.com/2013/11/code/converting-between-cvmat-and-qimage-or-qpixmap/
 
@@ -133,4 +143,15 @@ static cv::Mat QImageToCvMat(QImage inImage, bool inCloneImageData = true)
     }
 
     return cv::Mat();
+}
+
+OCVDecoder::~OCVDecoder()
+{
+    if(!m_processThread.isFinished()) {
+        m_processThread.cancel();
+        m_processThread.waitForFinished();
+    }
+    if (m_detector) {
+        delete m_detector;
+    }
 }
